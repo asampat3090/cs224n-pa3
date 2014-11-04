@@ -15,23 +15,28 @@ public class BetterBaseline implements CoreferenceSystem {
 	@Override
 	public void train(Collection<Pair<Document, List<Entity>>> trainingData) {
 		// TODO Auto-generated method stub
-
+		// Gather some statistics we can use for runCoreference?
 	}
 
 	@Override
 	public List<ClusteredMention> runCoreference(Document doc) {
 		// TODO Auto-generated method stub
-	
-	ArrayList<ClusteredMention> clusters = new ArrayList<ClusteredMention>();
-	for (Mention m : doc.getMentions()) {
-        if (m.gloss().equals("God the Protector")) {
-        System.out.println(m.sentence.parse);
-	System.out.println(m.parse);
-        System.out.println(m.beginIndexInclusive + " "+m.endIndexExclusive);
-        System.out.println(m.gloss());
-}
-     clusters.add(m.markSingleton());
-}
+
+		ArrayList<ClusteredMention> clusters = new ArrayList<ClusteredMention>();
+		Map<String,Entity> entities =  new HashMap<String,Entity>();
+		String prevMentionString = "";
+		for (Mention m : doc.getMentions()) {
+			// First Pass: Assign mention to the next mention (n-1 ClusteredMentions)
+			if(entities.containsKey(prevMentionString)){
+				// create clusteredmention with previous mention
+				clusters.add(m.markCoreferent(entities.get(prevMentionString)));	
+			}
+			// create new cluster everytime (to be marked coreferent at next step
+			ClusteredMention newCluster = m.markSingleton();
+			clusters.add(newCluster);
+			entities.put(m.gloss(),newCluster);
+			prevMentionString = m.gloss();
+		}
 
 	return clusters;
 	}
