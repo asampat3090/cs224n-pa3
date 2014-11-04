@@ -17,19 +17,18 @@ public class AllSingleton implements CoreferenceSystem {
 	@Override
 	public void train(Collection<Pair<Document, List<Entity>>> trainingData) {
 		// TODO Auto-generated method stub
+		// Do nothing
 	}
 
 	@Override
 	public List<ClusteredMention> runCoreference(Document doc) {
 		// TODO Auto-generated method stub
-		
-		 
 		List<ClusteredMention> mentions = new ArrayList<ClusteredMention>();
-		// Assign each mention to the one entity
-		// Create entity to add all mentions to
-		Entity oneEnt = new Entity(doc.getMentions());
+		// Assign each mention to it's own entity 
+		// Create a clustered mention for each of the mentions
 		for(Mention m : doc.getMentions()) {
-			mentions.add(m.markCoreferent(oneEnt));
+			ClusteredMention newCluster = m.markSingleton();
+			mentions.add(newCluster);
 		}
 		return mentions;
 	}
