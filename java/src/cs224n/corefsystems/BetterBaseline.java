@@ -31,6 +31,7 @@ public class BetterBaseline implements CoreferenceSystem {
 			// First Pass: Assign mention to the next mention (n-1 ClusteredMentions)
 			ClusteredMention thisCluster = thisMention.markSingleton();
 			ClusteredMention newCluster = nextMention.markCoreferent(thisCluster);
+			clusters.add(thisCluster);
 			clusters.add(newCluster);	
 		}
 
