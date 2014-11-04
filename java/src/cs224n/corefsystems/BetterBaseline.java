@@ -24,13 +24,12 @@ public class BetterBaseline implements CoreferenceSystem {
 		// TODO Auto-generated method stub
 
 		ArrayList<ClusteredMention> clusters = new ArrayList<ClusteredMention>();
-		Map<String,Entity> entities =  new HashMap<String,Entity>();
-		for (int i = 0; i<doc.getMentions().size()-1;i=i+2) {
+		for (int i = 0; i<(doc.getMentions().size()-1);i=i+2) {
 			Mention thisMention = doc.getMentions().get(i);
 			Mention nextMention = doc.getMentions().get(i+1);
 			// First Pass: Assign mention to the next mention (n-1 ClusteredMentions)
 			ClusteredMention thisCluster = thisMention.markSingleton();
-			ClusteredMention newCluster = nextMention.markCoreferent(thisCluster);
+			ClusteredMention newCluster = nextMention.markCoreferent(thisCluster.entity);
 			clusters.add(thisCluster);
 			clusters.add(newCluster);	
 		}
