@@ -22,19 +22,32 @@ public class BetterBaseline implements CoreferenceSystem {
 	@Override
 	public List<ClusteredMention> runCoreference(Document doc) {
 		// TODO Auto-generated method stub
-
 		ArrayList<ClusteredMention> clusters = new ArrayList<ClusteredMention>();
-		for (int i = 0; i<(doc.getMentions().size()-1);i=i+2) {
-			Mention thisMention = doc.getMentions().get(i);
-			Mention nextMention = doc.getMentions().get(i+1);
-			// First Pass: Assign mention to the next mention (n-1 ClusteredMentions)
-			ClusteredMention thisCluster = thisMention.markSingleton();
-			ClusteredMention newCluster = nextMention.markCoreferent(thisCluster.entity);
-			clusters.add(thisCluster);
-			clusters.add(newCluster);	
+		if(doc.getMentions().size() % 2 == 0) {// if even
+			for (int i = 0; i<(doc.getMentions().size()-1);i=i+2) {
+				Mention thisMention = doc.getMentions().get(i);
+				Mention nextMention = doc.getMentions().get(i+1);
+				// First Pass: Assign mention to the next mention (n-1 ClusteredMentions)
+				ClusteredMention thisCluster = thisMention.markSingleton();
+				ClusteredMention newCluster = nextMention.markCoreferent(thisCluster.entity);
+				clusters.add(thisCluster);
+				clusters.add(newCluster);	
+			}
+		} else { // if odd
+			clusters.add(doc.getMentions().get(0).markSingleton());
+			if(doc.getMentions().size()>1) {
+				for (int i = 1; i<(doc.getMentions().size()-1);i=i+2) {
+					Mention thisMention = doc.getMentions().get(i);
+					Mention nextMention = doc.getMentions().get(i+1);
+					// First Pass: Assign mention to the next mention (n-1 ClusteredMentions)
+					ClusteredMention thisCluster = thisMention.markSingleton();
+					ClusteredMention newCluster = nextMention.markCoreferent(thisCluster.entity);
+					clusters.add(thisCluster);
+					clusters.add(newCluster);	
+				}	
+			}
 		}
-
-	return clusters;
+		return clusters;
 	}
 
 }
