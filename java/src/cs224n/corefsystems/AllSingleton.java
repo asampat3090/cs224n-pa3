@@ -13,13 +13,14 @@ public class AllSingleton implements CoreferenceSystem {
 	@Override
 	public void train(Collection<Pair<Document, List<Entity>>> trainingData) {
 		// TODO Auto-generated method stub
-
+		// Do nothing?
 	}
 
 	@Override
 	public List<ClusteredMention> runCoreference(Document doc) {
 		// TODO Auto-generated method stub
-		return null;
+		
+		 
 	}
 
 }
