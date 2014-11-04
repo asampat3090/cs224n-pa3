@@ -25,18 +25,13 @@ public class BetterBaseline implements CoreferenceSystem {
 
 		ArrayList<ClusteredMention> clusters = new ArrayList<ClusteredMention>();
 		Map<String,Entity> entities =  new HashMap<String,Entity>();
-		String prevMentionString = "";
-		for (Mention m : doc.getMentions()) {
+		for (int i = 0; i<doc.getMentions().size()-1;i=i+2) {
+			Mention thisMention = doc.getMentions().get(i);
+			Mention nextMention = doc.getMentions().get(i+1);
 			// First Pass: Assign mention to the next mention (n-1 ClusteredMentions)
-			if(entities.containsKey(prevMentionString)){
-				// create clusteredmention with previous mention
-				clusters.add(m.markCoreferent(entities.get(prevMentionString)));	
-			}
-			// create new cluster everytime (to be marked coreferent at next step
-			ClusteredMention newCluster = m.markSingleton();
-			clusters.add(newCluster);
-			entities.put(m.gloss(),newCluster.entity);
-			prevMentionString = m.gloss();
+			ClusteredMention thisCluster = thisMention.markSingleton();
+			ClusteredMention newCluster = nextMention.markCoreferent(thisCluster);
+			clusters.add(newCluster);	
 		}
 
 	return clusters;
