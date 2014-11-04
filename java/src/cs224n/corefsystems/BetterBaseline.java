@@ -3,6 +3,7 @@ package cs224n.corefsystems;
 import java.util.Collection;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.*;
 
 
 import cs224n.coref.ClusteredMention;
@@ -34,7 +35,7 @@ public class BetterBaseline implements CoreferenceSystem {
 			// create new cluster everytime (to be marked coreferent at next step
 			ClusteredMention newCluster = m.markSingleton();
 			clusters.add(newCluster);
-			entities.put(m.gloss(),newCluster);
+			entities.put(m.gloss(),newCluster.entity);
 			prevMentionString = m.gloss();
 		}
 
