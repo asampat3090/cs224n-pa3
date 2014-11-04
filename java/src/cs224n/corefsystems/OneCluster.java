@@ -15,7 +15,7 @@ public class OneCluster implements CoreferenceSystem {
 	@Override
 	public void train(Collection<Pair<Document, List<Entity>>> trainingData) {
 		// TODO Auto-generated method stub
-
+		// Nothing
 	}
 
 	@Override
