@@ -48,7 +48,6 @@ public class RuleBased implements CoreferenceSystem {
 		
 		//(return the mentions)
 		return mentions;
-		
 	}
 
 }
