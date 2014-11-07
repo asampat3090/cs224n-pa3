@@ -47,7 +47,8 @@ public class RuleBased implements CoreferenceSystem {
 		// reallocate if mention and entity have different 
 		for(ClusteredMention cm: mentions ) {
 			// Check if mention and entity in cm have same gender o/w remove coref
-			Pair<Boolean,Boolean> res = new Pair<Boolean,Boolean>(); 
+			Pair<Boolean,Boolean> res = new Pair<Boolean,Boolean>(null, null); 
+			Pair<Boolean,Boolean> res2 = new Pair<Boolean,Boolean>(null, null); 
 			res = Util.haveGenderAndAreSameGender(cm.mention, cm.entity);
 			res2 = Util.haveNumberAndAreSameNumber(cm.mention, cm.entity);
 			if(((res.getFirst() && !res.getSecond()) || (res2.getFirst() && !res2.getSecond())) && cm.entity.mentions.size()>1) {
