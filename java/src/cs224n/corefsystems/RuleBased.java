@@ -35,7 +35,11 @@ public class RuleBased implements CoreferenceSystem {
 			//(...if we've seen the head of this text before...)
 			if(clusters.containsKey(mentionStringHead)||(clusters.containsKey(mentionStringHead.toLowerCase()))){
 				//(...add it to the cluster)
-				mentions.add(m.markCoreferent(clusters.get(mentionStringHead)));
+				if((clusters.containsKey(mentionStringHead.toLowerCase()))) {
+					mentions.add(m.markCoreferent(clusters.get(mentionStringHead.toLowerCase())));
+				} else {
+					mentions.add(m.markCoreferent(clusters.get(mentionStringHead)));
+				}
 			} else {
 				//(...else create a new singleton cluster)
 				ClusteredMention newCluster = m.markSingleton();
@@ -59,7 +63,14 @@ public class RuleBased implements CoreferenceSystem {
 			}
 		}
 		
-		// Step 3: 
+		// Step 3: Pronouns rules 
+		// Check pronoun distance 
+		//for(ClusteredMention cm: mentions) {
+		
+		//}
+		
+		// Step 4: Named Entity Rules
+		
 		
 		
 		//(return the mentions)
