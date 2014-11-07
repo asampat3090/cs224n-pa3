@@ -55,7 +55,7 @@ public class RuleBased implements CoreferenceSystem {
 				// Remove coreference 
 				cm.mention.removeCoreference();
 				// Allocate mention to singleton cluster
-				cm.mention.markSingleton();
+				mentions.add(cm.mention.markSingleton());
 			}
 		}
 		
