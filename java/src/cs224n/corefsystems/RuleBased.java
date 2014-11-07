@@ -10,6 +10,7 @@ import cs224n.coref.ClusteredMention;
 import cs224n.coref.Document;
 import cs224n.coref.Entity;
 import cs224n.coref.Mention;
+import cs224n.coref.Util;
 import cs224n.util.Pair;
 
 public class RuleBased implements CoreferenceSystem {
@@ -42,8 +43,22 @@ public class RuleBased implements CoreferenceSystem {
 				clusters.put(mentionStringHead,newCluster.entity);
 			}
 		}
-		// Step 2: Gender coherence for pronouns
-		// reallocate mentions to new clusters if needed
+		// Step 2: Gender and number consistency 
+		// reallocate if mention and entity have different 
+		for(ClusteredMention cm: mentions ) {
+			// Check if mention and entity in cm have same gender o/w remove coref
+			Pair<Boolean,Boolean> res = new Pair<Boolean,Boolean>(); 
+			res = Util.haveGenderAndAreSameGender(cm.mention, cm.entity);
+			res2 = Util.haveNumberAndAreSameNumber(cm.mention, cm.entity);
+			if(((res.getFirst() && !res.getSecond()) || (res2.getFirst() && !res2.getSecond())) && cm.entity.mentions.size()>1) {
+				// Remove coreference 
+				cm.mention.removeCoreference();
+				// Allocate mention to singleton cluster
+				cm.mention.markSingleton();
+			}
+		}
+		
+		// Step 3: 
 		
 		
 		//(return the mentions)
