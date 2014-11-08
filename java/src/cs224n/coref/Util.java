@@ -1,5 +1,6 @@
 package cs224n.coref;
 
+import cs224n.coref.Pronoun.Speaker;
 import cs224n.util.Pair;
 
 /**
@@ -54,5 +55,22 @@ public class Util {
     }
     return Pair.make(false, false);
   }
+  
+	public static Pair<Boolean, Boolean> havePersonAndAreSamePerson(Mention a, Mention b){
+    Pronoun proA = Pronoun.valueOrNull(a.gloss().toUpperCase().replaceAll(" ","_"));
+    Pronoun proB = Pronoun.valueOrNull(b.gloss().toUpperCase().replaceAll(" ","_"));
+    if(proA == null){ return Pair.make(false, false); }
+    if(proB == null){ return Pair.make(false, false); }
+	return Pair.make(true, proA.speaker == proB.speaker);
+  }
 
+  public static Pair<Boolean, Boolean> firstAndSecond(Mention a, Mention b){
+    Pronoun proA = Pronoun.valueOrNull(a.gloss().toUpperCase().replaceAll(" ","_"));
+    Pronoun proB = Pronoun.valueOrNull(b.gloss().toUpperCase().replaceAll(" ","_"));
+    if ((proA == null)||(proB == null))  
+    	return Pair.make(false, false); 
+    boolean ret = ((proA.speaker == Speaker.FIRST_PERSON) && (proB.speaker == Speaker.SECOND_PERSON)) ||
+    		((proA.speaker == Speaker.SECOND_PERSON) && (proB.speaker == Speaker.FIRST_PERSON));
+    return Pair.make(true, ret);
+  }
 }

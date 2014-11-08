@@ -4,6 +4,7 @@ import cs224n.ling.Tree;
 import cs224n.util.Decodable;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -73,6 +74,13 @@ public class Mention implements Serializable, Decodable {
    */
   public List<String> text(){ return sentence.words.subList(beginIndexInclusive, endIndexExclusive); }
 
+  public List<String> textLower(){
+	  List<String> ret = new ArrayList<String>();
+	  for(String w : text())
+		  ret.add(w.toLowerCase());
+	  return ret;
+  }
+  
   /**
    * The head word of this mention
    * @return The head word
@@ -84,6 +92,14 @@ public class Mention implements Serializable, Decodable {
    * @return The head word's token
    */
   public Sentence.Token headToken(){ return sentence.tokens.get(headWordIndex); }
+  
+  public List<Sentence.Token> allTokens(){
+	  List<Sentence.Token> ret = new ArrayList<Sentence.Token>();
+	  for(int i = beginIndexInclusive; i < endIndexExclusive; i++){
+		  ret.add(sentence.tokens.get(i));
+	  }
+	  return ret;
+  }
 
   /**
    * A String reproduction of this mention

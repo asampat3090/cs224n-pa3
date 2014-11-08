@@ -80,7 +80,31 @@ public class Sentence implements Serializable, Decodable {
     public boolean isProperNoun(){
       return isNoun() && (posTag().equals("NNP") || posTag().equals("NNPS"));
     }
+    
+    public boolean isPOS(String x){
+    	return posTag().equals(x);
+    }
 
+    public boolean isPOS(String x, String y){
+    	return isPOS(x) || isPOS(y);
+    }
+
+    public boolean isPOS(String x, String y, String z){
+    	return isPOS(x) || isPOS(y) || isPOS(z);
+    }
+    
+    public boolean isPOS(Set<String> set){
+    	return set.contains(posTag());
+    }
+
+    public boolean isPronoun(){
+    	return isPOS("PRP", "PRP$");
+    }
+    
+    public boolean isWord(List<String> list){
+    	return list.contains(word().toLowerCase());
+    }
+    
     /**
      * Returns whether this token is a noun.
      * @return true if the token is a noun

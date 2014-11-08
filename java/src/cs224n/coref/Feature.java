@@ -101,6 +101,97 @@ public interface Feature {
     public ExactMatch(boolean exactMatch){ super(exactMatch); }
   }
   
+  public static class DistInMentions extends IntIndicator {
+	  public DistInMentions(int dist){ super(dist); }
+  }
+  
+  public static class DistInSentences extends IntIndicator {
+	  public DistInSentences (int dist){ super(dist); }
+  }
+  
+  public static class Pronoun extends Indicator {
+	  public Pronoun(boolean isPronoun) { super(isPronoun); } 
+  }
+  
+  public static class NamedEntType extends StringIndicator {
+	  public NamedEntType(String name) {super(name); }
+  }
+  
+  //My type of features
+  public static class InexactMatch extends Indicator {
+	  public InexactMatch (boolean val){ super(val); }
+  }
+  
+  public static class ApproxMatch extends Indicator {
+	  public ApproxMatch (boolean val){ super(val); }
+  }
+  
+  public static class LongCandidate extends Indicator {
+	  public LongCandidate (boolean val){ super(val); }
+  }
+
+  public static class LongMention extends Indicator {
+	  public LongMention (boolean val){ super(val); }
+  }
+
+  public static class NumContains extends IntIndicator {
+	  public NumContains (int dist){ super(dist); }
+  }
+
+  public static class NumContained extends IntIndicator {
+	  public NumContained (int dist){ super(dist); }
+  }
+
+  public static class SubStringOf extends Indicator {
+	  public SubStringOf (boolean val){ super(val); }
+  }
+  public static class SubStrings extends Indicator {
+	  public SubStrings (boolean val){ super(val); }
+  }
+
+  public static class YouAndI extends Indicator {
+	  public YouAndI (boolean val){ super(val); }
+  }
+
+  public static class SameTalker extends Indicator {
+	  public SameTalker(boolean val){ super(val); }
+  }
+  
+  public static class SamePerson extends Indicator {
+	  public SamePerson(boolean val){ super(val); }
+  }
+
+  public static class SameGender extends Indicator {
+	  public SameGender(boolean val){ super(val); }
+  }
+  
+  public static class SameNumber extends Indicator {
+	  public SameNumber (boolean val) {super(val);}
+  }
+
+  public static class SameSentence extends Indicator {
+	  public SameSentence(boolean val){ super(val); }
+  }
+
+  public static class NearSentence extends Indicator {
+	  public NearSentence(boolean val){ super(val); }
+  }
+
+  public static class ThisIsIt extends Indicator {
+	  public ThisIsIt (boolean val) {super(val);}
+  }
+  
+  public static class HeadMatch extends Indicator {
+	  public HeadMatch (boolean val) {super(val);}
+  }
+  
+  public static class First15A extends Indicator{
+	  public First15A (boolean val) {super(val);}
+  }
+
+  public static class First15B extends Indicator{
+	  public First15B (boolean val) {super(val);}
+  }
   /*
    * TODO: Add values to the indicators here.
    */
